@@ -26,7 +26,6 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            /* Center for desktop */
             min-height: 100vh;
         }
 
@@ -34,7 +33,6 @@
         .mobile-container {
             width: 100%;
             max-width: 500px;
-            /* Mobile standard width */
             background-color: white;
             min-height: 100vh;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
@@ -65,9 +63,7 @@
         main {
             width: 100%;
             padding: 1.5rem;
-            /* Increased padding for better spacing */
             display: flex;
-            /* Changed from grid to flex for better column control on mobile */
             flex-direction: column;
             gap: 1.5rem;
         }
@@ -118,8 +114,6 @@
 
         .badge {
             display: inline-block;
-            background: #ffeaa7;
-            color: #d63031;
             padding: 0.2rem 0.6rem;
             border-radius: 20px;
             font-size: 0.75rem;
@@ -143,25 +137,124 @@
         </header>
 
         <main>
-            <!-- Test Item 1 -->
+            <!-- Test Item 1: Office -->
             <a href="test/office_survival.html" class="test-card">
                 <div class="card-img" style="background-color: #ff7675;">🏢</div>
                 <div class="card-content">
-                    <span class="badge">HOT</span>
+                    <span class="badge" style="background: #ffeaa7; color: #d63031;">HOT</span>
                     <div class="card-title">직장인 생존 유형 테스트</div>
                     <div class="card-desc">상사가 헛소리를 한다면? 소름돋는 직장 내 내 본캐 찾기!</div>
                 </div>
             </a>
 
-            <!-- Placeholder for more tests -->
-            <div class="test-card" style="opacity: 0.6; pointer-events: none;">
-                <div class="card-img" style="background-color: #74b9ff;">🔜</div>
+            <!-- Test Item 2: Love Cell -->
+            <a href="test/love_cell_test.html" class="test-card">
+                <div class="card-img" style="background-color: #FF9AA2;">💖</div>
                 <div class="card-content">
-                    <span class="badge">COMING SOON</span>
-                    <div class="card-title">연애 세포 생존 테스트</div>
-                    <div class="card-desc">준비 중입니다. 조금만 기다려주세요!</div>
+                    <span class="badge" style="background: #E0F7FA; color: #00BCD4;">NEW</span>
+                    <div class="card-title">연애세포 생존 테스트</div>
+                    <div class="card-desc">내 심장은 아직 뛰고 있을까? 죽어가는 연애세포 심폐소생술!</div>
                 </div>
-            </div>
+            </a>
+
+            <!-- Test Item 3: Parenting Style -->
+            <a href="test/parenting_style.html" class="test-card">
+                <div class="card-img" style="background-color: #FFD54F;">🧸</div>
+                <div class="card-content">
+                    <span class="badge" style="background: #FFF3E0; color: #FF9800;">POPULAR</span>
+                    <div class="card-title">실전 육아 성향 테스트</div>
+                    <div class="card-desc">나는 캥거루 부모일까? 오은영 박사님도 울고 갈 정밀 분석!</div>
+                </div>
+            </a>
+
+            <!-- Test Item 4: Survival English -->
+            <a href="test/english_survival.html" class="test-card">
+                <div class="card-img" style="background-color: #002868;">🇺🇸</div>
+                <div class="card-content">
+                    <span class="badge" style="background: #e3f2fd; color: #1565c0;">TRENDING</span>
+                    <div class="card-title">해외여행 생존 영어 테스트</div>
+                    <div class="card-desc">당신의 쪼렙 영어 실력으로 입국 심사를 통과할 수 있을까?</div>
+                </div>
+            </a>
+            </a>
+
+            <!-- Test Item 5: Dopamine Test -->
+            <a href="test/dopamine_test.html" class="test-card">
+                <div class="card-img" style="background-color: #000; color: #39FF14; text-shadow: 0 0 10px #39FF14;">🧠
+                </div>
+                <div class="card-content">
+                    <span class="badge" style="background: #e8f5e9; color: #2e7d32;">HOT</span>
+                    <div class="card-title">도파민 중독 테스트</div>
+                    <div class="card-desc">숏폼 보느라 밤샌 적 있다? 내 뇌가 녹고 있는지 확인하세요!</div>
+                </div>
+            </a>
+            </a>
+
+            <!-- Test Item 6: Spending Test -->
+            <a href="test/spending_test.html" class="test-card">
+                <div class="card-img" style="background-color: #ffffff; color: #2d2d2d; border: 1px solid #eee;">🧾
+                </div>
+                <div class="card-content">
+                    <span class="badge" style="background: #e8f5e9; color: #2e7d32;">MONEY</span>
+                    <div class="card-title">내 소비 패턴 분석</div>
+                    <div class="card-desc">나는 거지 DNA를 타고났을까? 영수증으로 알아보는 내 미래 자산!</div>
+                </div>
+            </a>
+            </a>
+
+            <!-- Test Item 7: Body Age Test -->
+            <a href="test/body_age_test.html" class="test-card">
+                <div class="card-img" style="background-color: #f0f7f4; color: #2ecc71;">🩺</div>
+                <div class="card-content">
+                    <span class="badge" style="background: #e8f8f5; color: #27ae60;">HEALTH</span>
+                    <div class="card-title">신체 나이 자가 진단</div>
+                    <div class="card-desc">당신의 주민등록 나이는 30세지만, 신체 나이는 60세일 수 있습니다.</div>
+                </div>
+            </a>
+            </a>
+
+            <!-- Test Item 8: Fortune Test -->
+            <a href="test/fortune_test.html" class="test-card">
+                <div class="card-img" style="background-color: #2c003e; color: #ffd700;">🔮</div>
+                <div class="card-content">
+                    <span class="badge" style="background: #f3e5f5; color: #7b1fa2;">LUCK</span>
+                    <div class="card-title">2026년 AI 금전운 테스트</div>
+                    <div class="card-desc">올해 로또 1등은 나? AI가 분석해주는 대박 운세와 행운의 숫자!</div>
+                </div>
+            </a>
+            </a>
+
+            <!-- Test Item 9: Talent Test -->
+            <a href="test/talent_test.html" class="test-card">
+                <div class="card-img" style="background-color: #001f3f; color: #39cccc;">🚀</div>
+                <div class="card-content">
+                    <span class="badge" style="background: #e0f2f1; color: #00695c;">CAREER</span>
+                    <div class="card-title">숨겨진 천재 재능 찾기</div>
+                    <div class="card-desc">나는 개발자일까, 유튜버일까? 내 숨겨진 천직과 연봉 1억 비결!</div>
+                </div>
+            </a>
+            </a>
+
+            <!-- Test Item 10: KKondae Test -->
+            <a href="test/kkondae_test.html" class="test-card">
+                <div class="card-img" style="background-color: #111; color: #ffeb3b;">🤬</div>
+                <div class="card-content">
+                    <span class="badge" style="background: #ffebee; color: #c62828;">HUMOR</span>
+                    <div class="card-title">직장인 꼰대력 테스트</div>
+                    <div class="card-desc">나 정도면 쿨한 선배지? 착각하는 당신을 위한 팩폭 제조기.</div>
+                </div>
+            </a>
+            </a>
+
+            <!-- Test Item 11: Color Test -->
+            <a href="test/color_test.html" class="test-card">
+                <div class="card-img" style="background-color: #fafafa; color: #ff80ab;">🎨</div>
+                <div class="card-content">
+                    <span class="badge" style="background: #ffebee; color: #c51162;">BEAUTY</span>
+                    <div class="card-title">초간단 퍼스널 컬러 진단</div>
+                    <div class="card-desc">웜톤? 쿨톤? 1분 만에 찾는 내 인생 컬러와 추천 아이템!</div>
+                </div>
+            </a>
         </main>
 
         <footer>
