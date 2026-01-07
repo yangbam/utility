@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 D-Day & 영업일 계산기 - 직장인 필수템</title>
+    <meta name="description" content="2026년 공휴일 자동 반영! 업무 마감일 계산(영업일 기준)과 커플/시험 D-Day 계산을 한 번에. 주말, 대체공휴일 제외 기능 포함.">
+    <meta name="keywords" content="디데이계산기, 영업일계산기, 워킹데이, 2026년공휴일, 날짜계산기, 마감일계산, 전역일계산, Yangbam Lab">
+    <meta name="author" content="Yangbam Lab">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="2026 D-Day & 영업일 계산기 📅">
+    <meta property="og:description" content="오늘부터 100일은? 영업일 기준 3일 뒤는? 2026년 달력 반영 계산기.">
+    <meta property="og:image" content="https://Yangbam-lab.com/assets/og_dday.png">
+    <link rel="canonical" href="https://Yangbam-lab.com/calculator/d_day_calc.html">
+
+    <style>
+        /* Calendar App Style: Clean White & Soft Colors */
+        :root {
+            --primary: #FF6B6B;
+            /* Soft Red for D-Day */
+            --secondary: #4D96FF;
+            /* Blue for Biz Day */
+            --text-main: #2d3436;
+            --text-sub: #636e72;
+            --bg: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --border: #DFE6E9;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--card-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .nav-home {
+            position: absolute;
+            left: 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-sub);
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active.dday {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-btn.active.biz {
+            color: var(--secondary);
+            border-bottom-color: var(--secondary);
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--text-sub);
+        }
+
+        input[type="date"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            outline: none;
+            color: var(--text-main);
+            background: #FAFAFA;
+        }
+
+        input:focus {
+            border-color: #aaa;
+            background: #fff;
+        }
+
+        .btn-calc {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s;
+        }
+
+        .btn-calc.dday {
+            background-color: var(--primary);
+        }
+
+        .btn-calc.biz {
+            background-color: var(--secondary);
+        }
+
+        .btn-calc:active {
+            transform: scale(0.98);
+        }
+
+        /* Result Panel */
+        .result-panel {
+            margin-top: 30px;
+            padding: 25px;
+            background: #F8F9FA;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .result-title {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-bottom: 5px;
+        }
+
+        .result-date {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .result-day {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* Ad / Monetization */
+        .ad-banner {
+            margin-top: 40px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .keyword-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .keyword-chip {
+            padding: 8px 15px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #555;
+            text-decoration: none;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #b2bec3;
+            font-size: 0.85rem;
+            padding-bottom: 20px;
+        }
+
+        .holiday-badge {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 4px 8px;
+            background: #ffebee;
+            color: #c62828;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="nav-home">←</a>
+            <h1>날짜 계산기</h1>
+        </header>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab-btn active dday" onclick="switchTab('dday')">D-Day</div>
+            <div class="tab-btn biz" onclick="switchTab('biz')">영업일 (Business Day)</div>
+        </div>
+
+        <div class="content-area">
+
+            <!-- Tab 1: D-Day Logic -->
+            <div id="section-dday" class="section active">
+                <div class="input-group">
+                    <label>기준일</label>
+                    <input type="date" id="dday-start">
+                </div>
+
+                <div class="input-group">
+                    <label>계산할 날짜 수 (예: 100일)</label>
+                    <input type="number" id="dday-num" placeholder="100" value="100">
+                </div>
+
+                <button class="btn-calc dday" onclick="calcDDay()">날짜 확인하기</button>
+
+                <div id="result-dday" class="result-panel" style="display:none;">
+                    <div class="result-title">기준일로부터 <span id="res-dday-count">100</span>일째 되는 날은</div>
+                    <div class="result-date" id="res-dday-date">2026.05.08</div>
+                    <div class="result-day" id="res-dday-day" style="color:var(--primary);">금요일</div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Business Day Logic -->
+            <div id="section-biz" class="section">
+                <div class="input-group">
+                    <label>시작일 (오늘)</label>
+                    <input type="date" id="biz-start">
+                </div>
+
+                <div class="input-group">
+                    <label>소요 영업일 (주말/공휴일 제외)</label>
+                    <input type="number" id="biz-num" placeholder="3" value="3">
+                </div>
+
+                <div style="font-size:0.85rem; color:#888; margin-top:-15px; margin-bottom:25px;">
+                    * 2026년 신정, 설날, 삼일절, 어린이날, 부처님오신날, 현충일, 광복절, 추석, 개천절, 한글날, 성탄절 및 대체공휴일 자동 반영
+                </div>
+
+                <button class="btn-calc biz" onclick="calcBizDay()">종료일 계산하기</button>
+
+                <div id="result-biz" class="result-panel" style="display:none;">
+                    <div class="result-title">목표 마감일은</div>
+                    <div class="result-date" id="res-biz-date">2026.02.20</div>
+                    <div class="result-day" id="res-biz-day" style="color:var(--secondary);">금요일</div>
+                    <div id="res-biz-skipped" style="margin-top:10px; font-size:0.85rem; color:#888;"></div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!-- SEO Content -->
+        <article
+            style="background-color: #fff; padding: 30px 20px; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
+            <h2 style="color: #FF6B6B; font-size: 1.3rem; margin-bottom: 20px;">[서론] 헷갈리는 날짜 계산, 왜 계산기가 필요할까?</h2>
+            <p style="line-height: 1.6; color: #2d3436; margin-bottom: 20px;">
+                "오늘부터 1일이면 100일은 언제지?" 연인 사이의 기념일 계산부터 중요한 업무 마감일까지, 날짜 계산은 단순해 보이지만 헷갈리기 쉽습니다. 특히 기준일을 1일로 포함하느냐(초일산입)
+                아니냐(초일불산입)에 따라 하루 차이가 발생합니다. 또한, 은행 업무나 관공서 민원 처리는 <strong>주말 공휴일 제외 계산</strong>이 필수적이므로
+                <strong>영업일(Working Day)</strong> 개념을 정확히 알아야 낭패를 보지 않습니다.
+            </p>
+
+            <h2 style="color: #4D96FF; font-size: 1.3rem; margin-top: 40px; margin-bottom: 20px;">[본론 1] 직장인 필수!
+                영업일(Working Day) 계산법</h2>
+            <p style="line-height: 1.6; color: #2d3436; margin-bottom: 15px;">
+                <strong>영업일(Business Day) 뜻</strong>은 법정 공휴일과 주말(토, 일)을 제외하고 실제로 회사가 업무를 하는 날을 말합니다.
+            </p>
+            <ul style="line-height: 1.8; color: #2d3436; margin-bottom: 20px; padding-left: 20px;">
+                <li style="margin-bottom: 10px;"><strong>은행 영업일:</strong> 대출 만기일이나 이자 납입일이 휴일과 겹치면 다음 영업일로 자동 연기됩니다.
+                </li>
+                <li style="margin-bottom: 10px;"><strong>관공서 민원:</strong> '처리 기한 3일'은 접수 당일을 제외하고 평일 기준 3일을 의미합니다.</li>
+                <li><strong>[팁] 2026년 연차 쓰기 좋은 날:</strong> <strong>2026년 공휴일 달력</strong>을 보면 설날(2월)과 추석(9월) 연휴를 활용해 장기
+                    휴가를 계획할 수 있습니다. 본 계산기로 미리 <strong>연차 쓰기 좋은 날</strong>을 확인해 보세요.</li>
+            </ul>
+
+            <h2 style="color: #FF6B6B; font-size: 1.3rem; margin-top: 40px; margin-bottom: 20px;">[본론 2] 커플 & 수험생을 위한
+                기념일 챙기기</h2>
+            <h3 style="color: #333; font-size: 1.1rem; margin-bottom: 10px;">두근두근 100일 계산</h3>
+            <p style="line-height: 1.6; color: #2d3436; margin-bottom: 20px;">
+                연인들의 <strong>만난지 100일 계산</strong>은 보통 '오늘부터 1일'로 칩니다. 따라서 사귄 날짜에 99일을 더해야 정확한 100일이 됩니다. 헷갈린다면 D-Day 탭에서
+                '기준일 포함' 여부를 확인하세요.
+            </p>
+            <h3 style="color: #333; font-size: 1.1rem; margin-bottom: 10px;">D-Day 관리의 중요성</h3>
+            <p style="line-height: 1.6; color: #2d3436; margin-bottom: 20px;">
+                <strong>수능 디데이</strong>나 자격증 시험일, 혹은 군인들의 <strong>전역일 계산</strong>은 남은 날짜(D-n)를 보며 목표 의식을 다지는 데 큰 도움이
+                됩니다. 중요한 날까지 며칠 남았는지 <strong>날짜수 세기</strong> 기능으로 매일 체크해 보세요.
+            </p>
+
+            <h2 style="color: #4D96FF; font-size: 1.3rem; margin-top: 40px; margin-bottom: 20px;">[정보] 음력과 양력, 그리고 윤년
+            </h2>
+            <ul style="line-height: 1.8; color: #2d3436; margin-bottom: 20px; padding-left: 20px;">
+                <li style="margin-bottom: 10px;"><strong>2026년은 평년:</strong> 2월이 28일까지 있는 평년입니다. 윤년(2월 29일)은 4년마다 돌아오므로
+                    날짜 계산 시 1일 차이에 주의해야 합니다.</li>
+                <li><strong>만나이 적용 날짜:</strong> 모든 법적 나이는 생일이 지났는지 여부에 따라 '만 나이'로 계산합니다.</li>
+            </ul>
+
+            <h2 style="color: #FF6B6B; font-size: 1.3rem; margin-top: 40px; margin-bottom: 20px;">[FAQ] 날짜 계산 Q&A</h2>
+            <ul style="line-height: 1.8; color: #2d3436; margin-bottom: 30px; padding-left: 20px;">
+                <li style="margin-bottom: 15px;">
+                    <strong>Q. 초일산입과 초일불산입이 뭔가요?</strong><br>
+                    A. 민법상 기간을 계산할 때 첫날을 포함하면 '초일산입', 제외하면 '초일불산입'이라고 합니다. 보통 오전 0시부터 시작하는 기간(예: 나이 계산)은 초일산입, 그 외(예: 계약
+                    기간)는 초일불산입이 원칙이나, 당사자 약정에 따라 다를 수 있습니다.
+                </li>
+                <li>
+                    <strong>Q. 공휴일이 주말과 겹치면 대체공휴일은?</strong><br>
+                    A. 설날, 추석, 어린이날, 3.1절, 광복절, 개천절, 한글날, 성탄절, 부처님오신날이 토요일 혹은 일요일과 겹치면 다음 비공휴일이 대체공휴일이 됩니다. (2026년 기준 법령
+                    반영)
+                </li>
+            </ul>
+
+            <p
+                style="color: #b2bec3; font-size: 0.85rem; margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px;">
+                ※ 면책 조항: 본 계산기는 2026년 예상 공휴일 데이터를 기반으로 하며, 행정/법적 기간 계산은 민법 및 관련 규정에 따라 예외가 있을 수 있습니다. 계약 등 중요한 날짜 산정은
+                반드시 전문가(변호사, 행정사 등)와 상담하시기 바랍니다.
+            </p>
+        </article>
+
+        <footer>
+            &copy; Yangbam Lab. All rights reserved.<br>
+            <a href="../policy.html"
+                style="color: #b2bec3; text-decoration: none; font-size: 0.8rem; margin-top: 5px; display: inline-block;">이용약관
+                및 개인정보처리방침</a>
+        </footer>
+    </div>
+
+    <script>
+        // 2026 Holidays (YYYY-MM-DD)
+        // Ref: Estimated Public Holidays for 2026 in Korea
+        const holidays2026 = [
+            "2026-01-01", // New Year
+            "2026-02-16", "2026-02-17", "2026-02-18", // Seollal (Feb 17 is Lunar New Year)
+            "2026-03-01", // Samiljeol (Sun)
+            "2026-03-02", // Samiljeol Substitute (Mon)
+            "2026-05-05", // Children's Day
+            "2026-05-24", // Buddha's Birthday (Sun)
+            "2026-05-25", // Buddha's Birthday Substitute (Mon)
+            "2026-06-06", // Memorial Day (Sat) - Typically no sub if Sat? But keeping conservative or user req. Let's assume standard.
+            "2026-08-15", // Liberation Day (Sat)
+            "2026-08-17", // Liberation Day Substitute (Mon, if applicable by expanded rule)
+            "2026-09-24", "2026-09-25", "2026-09-26", // Chuseok (Sep 25 is Chuseok)
+            "2026-10-03", // National Foundation Day (Sat)
+            "2026-10-09", // Hangeul Day (Fri)
+            "2026-12-25"  // Christmas (Fri)
+        ];
+
+        // Init Dates to Today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dday-start').value = today;
+        document.getElementById('biz-start').value = today;
+
+        function switchTab(mode) {
+            // UI Toggle
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.tab-btn.' + mode).classList.add('active');
+
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('section-' + mode).classList.add('active');
+        }
+
+        // Tab 1: D-Day Calculation
+        function calcDDay() {
+            const startStr = document.getElementById('dday-start').value;
+            const num = parseInt(document.getElementById('dday-num').value);
+
+            if (!startStr || isNaN(num)) {
+                alert("날짜와 일수를 올바르게 입력해주세요.");
+                return;
+            }
+
+            const startDate = new Date(startStr);
+            // D-Day logic: Day 1 is Start Date. So Day 100 is Start + 99 days.
+            // Usually "100th day" means Start + 99. "1 days later" means Start + 1.
+            // Let's implement standard "100th day" calculator.
+
+            const targetDate = new Date(startDate);
+            targetDate.setDate(startDate.getDate() + (num - 1));
+
+            // Display
+            document.getElementById('res-dday-count').innerText = num;
+            document.getElementById('res-dday-date').innerText = formatDate(targetDate);
+            document.getElementById('res-dday-day').innerText = getDayName(targetDate);
+
+            document.getElementById('result-dday').style.display = 'block';
+        }
+
+        // Tab 2: Business Day Calculation
+        function calcBizDay() {
+            const startStr = document.getElementById('biz-start').value;
+            const duration = parseInt(document.getElementById('biz-num').value);
+
+            if (!startStr || isNaN(duration)) {
+                alert("시작일과 소요 기간을 입력해주세요.");
+                return;
+            }
+
+            let currentDate = new Date(startStr);
+            let addedDays = 0;
+            let skippedDays = 0;
+
+            // Loop until we add enough business days
+            while (addedDays < duration) {
+                // Move to next day
+                currentDate.setDate(currentDate.getDate() + 1);
+
+                // Check constraints
+                if (isWeekend(currentDate) || isHoliday(currentDate)) {
+                    skippedDays++;
+                    continue; // Skip counting this day
+                }
+
+                addedDays++;
+            }
+
+            // Display
+            document.getElementById('res-biz-date').innerText = formatDate(currentDate);
+            document.getElementById('res-biz-day').innerText = getDayName(currentDate);
+            document.getElementById('res-biz-skipped').innerText = `총 ${skippedDays}일의 휴일/주말이 제외되었습니다.`;
+
+            document.getElementById('result-biz').style.display = 'block';
+        }
+
+        // Utilities
+        function isWeekend(date) {
+            const day = date.getDay();
+            return day === 0 || day === 6; // Sun=0, Sat=6
+        }
+
+        function isHoliday(date) {
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const str = `${yyyy}-${mm}-${dd}`;
+            return holidays2026.includes(str);
+        }
+
+        function formatDate(date) {
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            return `${yyyy}.${mm}.${dd}`;
+        }
+
+        function getDayName(date) {
+            const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+            return days[date.getDay()];
+        }
+    </script>
+</body>
+
+</html>

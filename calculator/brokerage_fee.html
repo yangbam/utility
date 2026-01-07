@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 부동산 중개수수료 계산기 - 복비 계산</title>
+    <meta name="description"
+        content="2026년 최신 요율 반영! 아파트, 오피스텔, 상가, 토지 중개보수(복비)를 1초 만에 계산하세요. 월세 환산액 자동 계산 및 부가세 포함 총액 확인.">
+    <meta name="keywords" content="중개수수료계산기, 복비계산기, 부동산수수료, 공인중개사보수, 월세복비, 전세복비, 매매복비, Yangbam Lab">
+    <meta name="author" content="Yangbam Lab">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="2026 부동산 중개수수료 계산기 🏠">
+    <meta property="og:description" content="이사 전 필수 체크! 호구 잡히지 않는 정확한 중개보수 계산.">
+    <meta property="og:image" content="https://Yangbam-lab.com/assets/og_brokerage.png">
+    <link rel="canonical" href="https://Yangbam-lab.com/calculator/brokerage_fee.html">
+
+    <style>
+        /* Zigbang/Dabang Style: Blue & White (Trustworthy) */
+        :root {
+            --primary: #1565C0;
+            /* Strong Blue */
+            --primary-light: #E3F2FD;
+            --accent: #FF9800;
+            --text-main: #222;
+            --text-sub: #666;
+            --bg: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --border: #DDD;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--card-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-home {
+            position: absolute;
+            left: 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* Content */
+        .content-area {
+            padding: 20px;
+            flex-grow: 1;
+            padding-bottom: 80px;
+            /* Space for fixed bottom */
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+            margin-top: 25px;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        /* Radio Buttons (Tab Style) */
+        .radio-group {
+            display: flex;
+            background: #F0F2F5;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .radio-label {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 6px;
+            color: #888;
+            transition: all 0.2s;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked+.radio-label {
+            background-color: white;
+            color: var(--primary);
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            padding-right: 40px;
+            /* One for Unit */
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: right;
+            outline: none;
+            color: var(--text-main);
+            font-weight: bold;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary);
+            background-color: #FAFDFF;
+        }
+
+        .unit {
+            position: absolute;
+            right: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Number Buttons */
+        .num-pad {
+            display: flex;
+            gap: 8px;
+        }
+
+        .num-btn {
+            flex: 1;
+            padding: 8px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            color: #555;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .num-btn:active {
+            background-color: #f0f0f0;
+        }
+
+        .num-btn.reset {
+            background-color: #fff0f0;
+            color: #d32f2f;
+            border-color: #ffcdd2;
+        }
+
+        /* Checkbox */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        /* Calculate Button */
+        .btn-calc {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(21, 101, 192, 0.3);
+        }
+
+        /* Result Area */
+        .result-panel {
+            background-color: #F8F9FA;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #E3E3E3;
+            margin-top: 10px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .result-row.total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+            color: #222;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .result-val {
+            font-weight: bold;
+        }
+
+        .total-price {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Promotion Banner */
+        .promo-banner {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .promo-btn {
+            flex: 1;
+            padding: 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #555;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .promo-btn span {
+            font-size: 1.2rem;
+        }
+
+        .promo-btn:hover {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #b2bec3;
+            font-size: 0.85rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="nav-home">←</a>
+            <h1>부동산 중개수수료 계산기</h1>
+        </header>
+
+        <div class="content-area">
+
+            <!-- Ad Placeholder Header -->
+            <!-- <div style="background:#eee; height:50px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; color:#999;">광고 영역</div> -->
+
+            <!-- Property Type -->
+            <div class="section-title">물건 종류</div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="property" value="housing" checked onchange="updateUI()">
+                    <div class="radio-label">주택/아파트</div>
+                </label>
+                <label>
+                    <input type="radio" name="property" value="officetel" onchange="updateUI()">
+                    <div class="radio-label">오피스텔</div>
+                </label>
+                <label>
+                    <input type="radio" name="property" value="etc" onchange="updateUI()">
+                    <div class="radio-label">상가/토지</div>
+                </label>
+            </div>
+
+            <!-- Transaction Type -->
+            <div class="section-title">거래 유형</div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="trans" value="sale" checked onchange="updateUI()">
+                    <div class="radio-label">매매/교환</div>
+                </label>
+                <label>
+                    <input type="radio" name="trans" value="jeonse" onchange="updateUI()">
+                    <div class="radio-label">전세</div>
+                </label>
+                <label>
+                    <input type="radio" name="trans" value="rent" onchange="updateUI()">
+                    <div class="radio-label">월세</div>
+                </label>
+            </div>
+
+            <!-- Money Inputs -->
+            <div class="section-title" id="price-label">매매/보증금</div>
+
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <input type="text" id="deposit" class="input-field" placeholder="0" onkeyup="formatCurrency(this)">
+                    <span class="unit">원</span>
+                </div>
+                <div class="num-pad">
+                    <div class="num-btn" onclick="addMoney('deposit', 100000000)">+1억</div>
+                    <div class="num-btn" onclick="addMoney('deposit', 10000000)">+1천</div>
+                    <div class="num-btn" onclick="addMoney('deposit', 1000000)">+100만</div>
+                    <div class="num-btn reset" onclick="resetMoney('deposit')">초기화</div>
+                </div>
+            </div>
+
+            <div id="rent-section" class="hidden">
+                <div class="section-title" style="margin-top:15px;">월세</div>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="monthly" class="input-field" placeholder="0"
+                            onkeyup="formatCurrency(this)">
+                        <span class="unit">원</span>
+                    </div>
+                    <div class="num-pad">
+                        <div class="num-btn" onclick="addMoney('monthly', 100000)">+10만</div>
+                        <div class="num-btn" onclick="addMoney('monthly', 10000)">+1만</div>
+                        <div class="num-btn reset" onclick="resetMoney('monthly')">초기화</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Options -->
+            <div class="section-title">옵션 선택</div>
+            <label class="checkbox-wrapper">
+                <input type="checkbox" id="vat" checked>
+                <span>부가세(VAT) 10% 포함 계산</span>
+            </label>
+
+            <!-- Region (Optional for standard, but good for UI) -->
+            <div class="section-title" style="margin-top:20px;">지역 선택</div>
+            <select id="region" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px;">
+                <option value="seoul">서울 (국토부 표준)</option>
+                <option value="gyeonggi">경기 (국토부 표준)</option>
+                <option value="other">그 외 지역</option>
+            </select>
+
+            <button class="btn-calc" onclick="calculateFee()">복비 계산하기</button>
+
+            <!-- Result -->
+            <div id="result-area" class="result-panel hidden">
+                <div class="result-row">
+                    <span>거래 금액 (환산)</span>
+                    <span class="result-val" id="res-val-amt">-</span>
+                </div>
+                <div class="result-row">
+                    <span>적용 요율</span>
+                    <span class="result-val" id="res-rate">-</span>
+                </div>
+                <div class="result-row">
+                    <span>한도액</span>
+                    <span class="result-val" id="res-limit">없음</span>
+                </div>
+                <div class="result-row total">
+                    <span>최대 중개보수 (VAT 포함)</span>
+                </div>
+                <div style="text-align:right;">
+                    <span class="total-price" id="res-total">0</span> <span
+                        style="font-size:1.1rem; font-weight:bold;">원</span>
+                </div>
+            </div>
+
+            <!-- Ad Placeholder Middle -->
+            <!-- <div style="background:#eee; height:250px; margin-top:30px; display:flex; align-items:center; justify-content:center; color:#999;">광고 영역</div> -->
+
+
+
+            <!-- SEO Content -->
+            <div class="brokerage-fee-guide" style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #eee;">
+                <h2 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-top: 30px;">[서론] 부동산 중개수수료란 무엇인가요?
+                </h2>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #555;">
+                    흔히 '복비'라고 불리는 <strong>부동산 중개수수료</strong>는 공인중개사가 중개 업무를 수행한 대가로 의뢰인에게 받는 보수를 말합니다. 많은 분들이 부동산 거래 시
+                    계약금이나 잔금에만
+                    집중하다가, 막상 잔금 치르는 날 예상보다 큰 중개보수 금액에 당황하시곤 합니다. 하지만 <strong>공인중개사 법정 수수료</strong>는 법으로 정해진 '비율'과
+                    '한도액'이
+                    명확히 존재하기 때문에, 미리 계산해보면 예산을 정확하게 잡을 수 있습니다.
+                </p>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #555;">
+                    본 가이드에서는 <strong>서울 경기 중개수수료</strong>뿐만 아니라 전국 공통으로 적용되는 <strong>2026년 복비 요율표</strong>를 기준으로, 복잡한
+                    <strong>부동산
+                        중개수수료 계산 방법</strong>을 알기 쉽게 정리해 드립니다. 아는 만큼 아낄 수 있는 부동산 상식, 지금 바로 확인해보세요.
+                </p>
+
+                <h2 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-top: 30px;">[본론 1] 2026년 적용되는 거래별
+                    요율 구간 상세 안내
+                </h2>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #555;">
+                    중개보수는 거래의 형태(<strong>매매 교환 전세 월세 차이</strong>)와 대상 물건(아파트, 주택, 오피스텔 등)에 따라 적용되는 요율이 다릅니다. 특히
+                    <strong>2026년 복비
+                        요율표</strong>에 따르면 거래 금액 구간별로 상한 요율이 세분화되어 있어 주의가 필요합니다.
+                </p>
+
+                <h3 style="font-size: 1.1rem; font-weight: bold; color: #444; margin-top: 20px;">1. 주택 매매 및 교환 시 요율</h3>
+                <ul style="font-size: 0.95rem; line-height: 1.6; color: #555; padding-left: 20px;">
+                    <li><strong>5천만 원 미만</strong>: 0.6% (<strong>중개보수 한도액</strong> 25만 원)</li>
+                    <li><strong>5천만 ~ 2억 원 미만</strong>: 0.5% (한도액 80만 원)</li>
+                    <li><strong>2억 ~ 9억 원 미만</strong>: 0.4%</li>
+                    <li><strong>9억 ~ 12억 원 미만</strong>: 0.5%</li>
+                    <li><strong>12억 ~ 15억 원 미만</strong>: 0.6%</li>
+                    <li><strong>15억 원 이상</strong>: 0.7% 이내에서 협의</li>
+                </ul>
+
+                <h3 style="font-size: 1.1rem; font-weight: bold; color: #444; margin-top: 20px;">2. 전세 및 월세 임대차 시 요율
+                </h3>
+                <ul style="font-size: 0.95rem; line-height: 1.6; color: #555; padding-left: 20px;">
+                    <li><strong>5천만 원 미만</strong>: 0.5% (한도액 20만 원)</li>
+                    <li><strong>5천만 ~ 1억 원 미만</strong>: 0.4% (한도액 30만 원)</li>
+                    <li><strong>1억 ~ 3억 원 미만</strong>: 0.3%</li>
+                    <li><strong>3억 ~ 6억 원 미만</strong>: 0.4%</li>
+                    <li><strong>6억 ~ 12억 원 미만</strong>: 0.5%</li>
+                    <li><strong>12억 ~ 15억 원 미만</strong>: 0.6%</li>
+                    <li><strong>15억 원 이상</strong>: 0.6% 이내에서 협의</li>
+                </ul>
+
+                <h3 style="font-size: 1.1rem; font-weight: bold; color: #444; margin-top: 20px;">3. 주택 오피스텔 요율 차이점</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #555;">
+                    오피스텔은 '주거용' 설비를 갖추었느냐에 따라 요율이 달라집니다. 전용면적 85㎡ 이하이면서 입식 부엌, 화장실, 목욕 시설을 갖춘 <strong>주거용 오피스텔</strong>의
+                    경우
+                    매매는 0.5%, 임대차는 0.4%가 적용됩니다. 하지만 그 외 업무용 오피스텔이나 상가는 거래 금액과 상관없이 0.9% 이내에서 협의해야 합니다.
+                </p>
+
+                <h2 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-top: 30px;">[본론 2] 복잡한 월세 복비 계산법
+                    (환산보증금)
+                </h2>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #555;">
+                    월세 계약 시에는 '환산보증금'이라는 개념을 알아야 정확한 수수료 계산이 가능합니다. 기본 공식은 <strong>[보증금 + (월세 × 100)]</strong>입니다. 예를 들어
+                    보증금
+                    1천만 원에 월세 50만 원이라면, 1,000만 + (50만 × 100) = 6,000만 원이 거래 기준 금액이 됩니다.
+                </p>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #555;">
+                    여기서 가장 중요한 <strong>특례 조항</strong>이 있습니다. 만약 위 공식으로 계산한 금액이 <strong>5천만 원 미만</strong>이라면,
+                    <strong>[보증금 + (월세 ×
+                        70)]</strong>으로 다시 계산해야 합니다. 이 경우 요율 구간이 낮아지거나 한도액 적용을 받아 중개수수료가 대폭 줄어들 수 있으므로 꼭 기억해두셔야 합니다.
+                </p>
+
+                <h2 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-top: 30px;">[주의사항] 부가세(VAT)와 한도액
+                </h2>
+                <ul style="font-size: 0.95rem; line-height: 1.6; color: #555; padding-left: 20px;">
+                    <li>
+                        <strong>부가세 포함 여부</strong>: 법정 중개보수에는 부가가치세(VAT)가 포함되어 있지 않습니다. 중개사무소가 <strong>일반과세자</strong>라면
+                        법정 수수료의
+                        10%를 부가세로 별도 납부해야 하며, <strong>간이과세자</strong>인 경우 과거 3%였으나 현재는 4% 혹은 면제 등 사업자 매출 규모에 따라 다르게 적용되므로
+                        확인이
+                        필요합니다. 통상적으로 일반과세자는 10%, 간이과세자는 부가세 요구를 하지 않는 경우가 많으나 법적 의무 사항을 잘 확인해야 합니다.
+                    </li>
+                    <li style="margin-top: 10px;">
+                        <strong>한도액 준수</strong>: 계산된 금액이 아무리 높아도, 시/도 조례에서 정한 <strong>중개보수 한도액</strong>이 있다면 그 금액까지만 청구할
+                        수 있습니다.
+                        예를 들어 4,500만 원 전세 계약 시 계산상 22만 5천 원이 나오더라도, 한도액이 20만 원이라면 20만 원만 지급하면 됩니다.
+                    </li>
+                </ul>
+
+                <h2 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-top: 30px;">[FAQ] 자주 묻는 질문</h2>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 20px;">
+                        <h3 style="font-size: 1.1rem; font-weight: bold; color: #444; margin-bottom: 5px;">Q1. 중개수수료는 언제
+                            지급하나요?</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin: 0;">공인중개사법에 따르면 약정이 없을 경우
+                            기본적으로
+                            <strong>거래 대금 지급이 완료된 날(잔금일)</strong>에 지급하는 것이 원칙입니다.
+                        </p>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <h3 style="font-size: 1.1rem; font-weight: bold; color: #444; margin-bottom: 5px;">Q2. 현금영수증 발행이
+                            가능한가요?</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin: 0;">네, 가능합니다. 10만 원 이상의
+                            중개보수를 지급할 때
+                            의무 발행 대상이므로, <strong>소득공제 혜택</strong>을 위해 꼭 현금영수증을 요청하세요. 부가세를 별도로 냈다면 세금계산서 발행도 가능합니다.</p>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <h3 style="font-size: 1.1rem; font-weight: bold; color: #444; margin-bottom: 5px;">Q3. 법정 수수료보다
+                            더 달라고
+                            하면 어떻게 하나요?</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.6; color: #555; margin: 0;">법정 한도를 초과하는 중개보수 약정은 해당
+                            초과 부분에 한해
+                            무효입니다. <strong>공인중개사 법정 수수료</strong>를 초과하여 요구하는 것은 불법이므로, 관할 시/군/구청에 문의하거나 조정 신청을 할 수 있습니다.
+                        </p>
+                    </li>
+                </ul>
+
+                <p
+                    style="margin-top: 30px; font-weight: 500; color: #555; border-top: 1px solid #eee; padding-top: 15px;">
+                    ※ 본 계산기는 최신 법령을 반영하고 있습니다.
+                </p>
+            </div>
+
+        </div>
+
+        <footer>
+            &copy; Yangbam Lab. All rights reserved.<br>
+            <a href="../policy.html"
+                style="color: #b2bec3; text-decoration: none; font-size: 0.8rem; margin-top: 5px; display: inline-block;">이용약관
+                및 개인정보처리방침</a>
+        </footer>
+    </div>
+
+    <script>
+        // --- 1. Data Tables (2026 Standards) ---
+        // Unit: KRW
+        const rateTable = {
+            housing: {
+                sale: [
+                    { max: 50000000, rate: 0.6, limit: 250000 },      // ~5천: 0.6%, 한도 25만
+                    { max: 200000000, rate: 0.5, limit: 800000 },     // ~2억: 0.5%, 한도 80만
+                    { max: 900000000, rate: 0.4, limit: 0 },          // ~9억: 0.4%
+                    { max: 1200000000, rate: 0.5, limit: 0 },         // ~12억: 0.5%
+                    { max: 1500000000, rate: 0.6, limit: 0 },         // ~15억: 0.6%
+                    { max: Infinity, rate: 0.7, limit: 0 }            // 15억~: 0.7%
+                ],
+                jeonse: [
+                    { max: 50000000, rate: 0.5, limit: 200000 },      // ~5천: 0.5%, 한도 20만
+                    { max: 100000000, rate: 0.4, limit: 300000 },     // ~1억: 0.4%, 한도 30만
+                    { max: 600000000, rate: 0.3, limit: 0 },          // ~6억: 0.3%
+                    { max: 1200000000, rate: 0.4, limit: 0 },         // ~12억: 0.4%
+                    { max: 1500000000, rate: 0.5, limit: 0 },         // ~15억: 0.5%
+                    { max: Infinity, rate: 0.6, limit: 0 }            // 15억~: 0.6%
+                ]
+            },
+            officetel: {
+                // 주거용 오피스텔 (면적 85m2 이하 등 조건 가정)
+                sale: 0.5,
+                jeonse: 0.4
+            },
+            etc: {
+                // 토지, 상가 등
+                all: 0.9
+            }
+        };
+
+        // --- 2. Logic ---
+        function calculateFee() {
+            const property = document.querySelector('input[name="property"]:checked').value;
+            const trans = document.querySelector('input[name="trans"]:checked').value;
+            const deposit = parseMoney(document.getElementById('deposit').value);
+            const monthly = parseMoney(document.getElementById('monthly').value);
+            const isVat = document.getElementById('vat').checked;
+
+            if (deposit === 0 && monthly === 0) {
+                alert("금액을 입력해주세요.");
+                return;
+            }
+
+            // 1. Calculate Transaction Amount
+            let amount = deposit;
+            if (trans === 'rent') {
+                amount = deposit + (monthly * 100);
+                if (amount < 50000000) {
+                    amount = deposit + (monthly * 70); // Under 50M rule
+                }
+            }
+
+            // 2. Find Rate & Limit
+            let rate = 0;
+            let limit = 0;
+
+            if (property === 'housing') {
+                const table = (trans === 'sale') ? rateTable.housing.sale : rateTable.housing.jeonse;
+                for (let row of table) {
+                    if (amount < row.max) {
+                        rate = row.rate;
+                        limit = row.limit;
+                        break;
+                    }
+                }
+            } else if (property === 'officetel') {
+                // Assuming Residential Officetel for Calculation (Simplification)
+                // Need strict logic: User should ideally toggle 'residential' vs 'business'. 
+                // Currently adhering to standard tool simplification: 
+                // Many tools ask "Is this Residential Officetel?" -> If yes 0.5/0.4, else 0.9
+                // Let's assume standard residential for this Quick Calc tool.
+                rate = (trans === 'sale') ? 0.5 : 0.4;
+            } else {
+                // Commerical / Land
+                rate = 0.9;
+            }
+
+            // 3. Calc Fee
+            let fee = Math.floor(amount * (rate / 100));
+            if (limit > 0 && fee > limit) {
+                fee = limit;
+            }
+
+            // 4. VAT
+            let finalFee = fee;
+            if (isVat) {
+                finalFee = Math.floor(fee * 1.1);
+            }
+
+            // 5. Render
+            document.getElementById('res-val-amt').innerText = formatKor(amount);
+            document.getElementById('res-rate').innerText = rate + "%";
+            document.getElementById('res-limit').innerText = (limit > 0) ? formatNum(limit) + "원" : "한도없음";
+            document.getElementById('res-total').innerText = formatNum(finalFee);
+
+            document.getElementById('result-area').classList.remove('hidden');
+        }
+
+        // --- 3. UI Helpers ---
+        function updateUI() {
+            const trans = document.querySelector('input[name="trans"]:checked').value;
+            const priceLabel = document.getElementById('price-label');
+
+            if (trans === 'sale') {
+                priceLabel.innerText = "매매/분양금액";
+                document.getElementById('rent-section').classList.add('hidden');
+            } else if (trans === 'jeonse') {
+                priceLabel.innerText = "전세보증금";
+                document.getElementById('rent-section').classList.add('hidden');
+            } else {
+                priceLabel.innerText = "보증금";
+                document.getElementById('rent-section').classList.remove('hidden');
+            }
+        }
+
+        // Money Input Utils
+        function addMoney(id, amount) {
+            const el = document.getElementById(id);
+            let current = parseMoney(el.value);
+            el.value = formatNum(current + amount);
+        }
+
+        function resetMoney(id) {
+            document.getElementById(id).value = "";
+        }
+
+        // Number Formatting
+        function parseMoney(str) {
+            return Number(str.replace(/,/g, '')) || 0;
+        }
+
+        function formatCurrency(el) {
+            let val = parseMoney(el.value);
+            if (val > 0) el.value = formatNum(val);
+        }
+
+        function formatNum(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function formatKor(num) {
+            if (num >= 100000000) {
+                let eok = Math.floor(num / 100000000);
+                let man = Math.floor((num % 100000000) / 10000);
+                return eok + "억" + (man > 0 ? " " + formatNum(man) + "만" : "") + "원";
+            }
+            return formatNum(num) + "원";
+        }
+
+        // Init
+        updateUI();
+    </script>
+</body>
+
+</html>

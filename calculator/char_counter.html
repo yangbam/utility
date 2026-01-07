@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글자수 세기 & 바이트 계산기 - 자소서 필수템</title>
+    <meta name="description"
+        content="공백 포함/제외 글자 수와 바이트(Byte)를 실시간으로 계산하세요. 이력서, 자기소개서, 블로그 포스팅 작성을 위한 깔끔한 온라인 글자 수 세기 도구.">
+    <meta name="keywords" content="글자수세기, 글자수계산기, 바이트계산기, 자소서글자수, 이력서글자수, 블로그글자수, 영문글자수, Yangbam Lab">
+    <meta name="author" content="Yangbam Lab">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="글자수 세기 & 바이트 계산기 📝">
+    <meta property="og:description" content="자소서, 블로그 필수! 공백 제외 글자 수와 바이트를 실시간으로 확인하세요.">
+    <meta property="og:image" content="https://Yangbam-lab.com/assets/og_char_count.png">
+    <link rel="canonical" href="https://Yangbam-lab.com/itconvertor/char_counter.html">
+
+    <style>
+        /* Reader Mode Style: Eye-comfort Gray */
+        :root {
+            --primary: #607D8B;
+            --bg: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-main: #37474F;
+            --text-sub: #78909C;
+            --border: #CFD8DC;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            /* Wider for comfortable writing */
+            background-color: var(--card-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .nav-home {
+            position: absolute;
+            left: 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* Content */
+        .content-area {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Control Bar */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .byte-option {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .byte-option label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .btn-sm:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Textarea Main */
+        .textarea-wrapper {
+            flex-grow: 1;
+            position: relative;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            padding: 2px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border: none;
+            padding: 20px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+            color: #263238;
+            border-radius: 6px;
+        }
+
+        textarea::placeholder {
+            color: #CFD8DC;
+        }
+
+        /* Stats Bar (Sticky Bottom of Input) */
+        .stats-bar {
+            background-color: #ECEFF1;
+            padding: 15px 20px;
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #78909C;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-unit {
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: #78909C;
+        }
+
+        /* External Links */
+        .external-tools {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #eee;
+            justify-content: center;
+        }
+
+        .ext-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #555;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .ext-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Ad Placeholder */
+        .ad-area {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #fcfcfc;
+            border-radius: 8px;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #b2bec3;
+            font-size: 0.85rem;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="nav-home">←</a>
+            <h1>글자수 세기</h1>
+        </header>
+
+        <div class="content-area">
+
+            <div class="controls">
+                <div class="byte-option">
+                    <label>
+                        <input type="radio" name="byteMode" value="2" checked onchange="updateStats()">
+                        2byte (한글 2자)
+                    </label>
+                    <label>
+                        <input type="radio" name="byteMode" value="3" onchange="updateStats()">
+                        3byte (UTF-8)
+                    </label>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-sm" onclick="trimText()">공백정리</button>
+                    <button class="btn-sm" onclick="copyText()">전체복사</button>
+                    <button class="btn-sm" onclick="clearText()" style="color:#e53935;">초기화</button>
+                </div>
+            </div>
+
+            <div class="textarea-wrapper">
+                <textarea id="inputText" placeholder="내용을 입력하거나 붙여넣기(Ctrl+V) 하세요.&#13;&#10;실시간으로 글자 수와 바이트가 계산됩니다."
+                    oninput="updateStats()"></textarea>
+
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-label">공백 포함</div>
+                        <div class="stat-value" id="count-all">0</div>
+                        <span class="stat-unit">자</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">공백 제외</div>
+                        <div class="stat-value" id="count-no-space">0</div>
+                        <span class="stat-unit">자</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">총 용량</div>
+                        <div class="stat-value" id="count-byte">0</div>
+                        <span class="stat-unit">byte</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ad Placeholder -->
+            <div class="ad-area">
+                <!-- AdSense code will go here -->
+                <span style="font-size:0.8rem; color:#ccc;">SPONSORED</span>
+            </div>
+
+            <div class="external-tools">
+                <span style="font-size:0.9rem; color:#888; display:flex; align-items:center; margin-right:5px;">맞춤법 검사가
+                    필요하신가요?</span>
+                <a href="http://www.saramin.co.kr/zf_user/tools/character-counter" target="_blank" class="ext-btn">사람인
+                    검사기</a>
+                <a href="https://search.naver.com/search.naver?query=맞춤법검사기" target="_blank" class="ext-btn">네이버 검사기</a>
+            </div>
+
+            <!-- SEO Content -->
+            <article
+                style="background-color: #fff; padding: 30px 20px; border-top: 1px solid #CFD8DC; margin-top: 30px;">
+                <h2 style="color: #607D8B; font-size: 1.3rem; margin-bottom: 20px;">[서론] 합격을 부르는 자소서, 글자 수가 첫걸음</h2>
+                <p style="line-height: 1.6; color: #37474F; margin-bottom: 20px;">
+                    "복사해서 붙여넣었더니 글자 수가 다르네?" 이는 사이트마다 줄바꿈 문자(\r\n)를 1자로 치느냐 2자로 치느냐 기준이 다르기 때문입니다. 기업 채용 시 <strong>자소서
+                        글자수</strong> 제한은 지원자의 성실성을 평가하는 첫 번째 관문입니다. 너무 적으면 성의 없어 보이고, 넘치면 잘릴 수 있습니다. 본 <strong>글자수
+                        세기</strong> 도구를 활용해 정확하게 분량을 체크하세요.
+                </p>
+
+                <h2 style="color: #607D8B; font-size: 1.3rem; margin-top: 40px; margin-bottom: 20px;">[본론 1] 공백 포함 vs 공백
+                    제외, 무엇이 기준일까?</h2>
+                <p style="line-height: 1.6; color: #37474F; margin-bottom: 15px;">
+                    대부분의 기업 자기소개서는 <strong>공백 포함</strong> 글자 수를 기준으로 합니다. 하지만 논문이나 방송 대본 등 전문적인 문서 작성 시에는 <strong>공백
+                        제외</strong>가 기준이 되기도 합니다.
+                </p>
+                <ul style="line-height: 1.8; color: #37474F; margin-bottom: 20px; padding-left: 20px;">
+                    <li style="margin-bottom: 10px;"><strong>채용 사이트 기준:</strong> 사람인, 잡코리아 등은 대체로 줄바꿈을 포함하여 계산하는 경향이
+                        있습니다.</li>
+                    <li><strong>인스타그램 글자수:</strong> 해시태그 포함 최대 2,200자 제한이 있으며, 공백을 포함하여 계산합니다.</li>
+                </ul>
+
+                <h2 style="color: #607D8B; font-size: 1.3rem; margin-top: 40px; margin-bottom: 20px;">[본론 2] 마케터 필수 상식:
+                    SMS/LMS 바이트 계산</h2>
+                <h3 style="color: #546E7A; font-size: 1.1rem; margin-bottom: 10px;">90byte의 비밀 (SMS vs LMS)</h3>
+                <p style="line-height: 1.6; color: #37474F; margin-bottom: 20px;">
+                    문자 메시지는 90byte(SKT/KT/LGU+ 통신사 기준, 구 단말기 80byte)를 넘으면 자동으로 장문(LMS, 2,000byte)으로 전환되어 요금이 올라갑니다. 마케팅
+                    비용 절감을 위해 <strong>바이트 계산기</strong>로 미리 용량을 확인하는 것이 필수입니다.
+                </p>
+                <h3 style="color: #546E7A; font-size: 1.1rem; margin-bottom: 10px;">한글 2byte vs 3byte 차이</h3>
+                <p style="line-height: 1.6; color: #37474F; margin-bottom: 20px;">
+                    한글은 인코딩 방식에 따라 용량이 다릅니다.
+                    <br>- <strong>EUC-KR (2byte)</strong>: 국내 관공서, 네이버 등 구형 시스템 호환용 (본 계산기 기본설정).
+                    <br>- <strong>UTF-8 (3byte)</strong>: 전 세계 표준 웹 규격.
+                    <br>본 계산기의 라디오 버튼을 통해 용도에 맞는 방식을 선택하세요.
+                </p>
+
+                <h2 style="color: #607D8B; font-size: 1.3rem; margin-top: 40px; margin-bottom: 20px;">[팁] 글자 수 줄이는 & 늘리는
+                    노하우</h2>
+                <ul style="line-height: 1.8; color: #37474F; margin-bottom: 20px; padding-left: 20px;">
+                    <li style="margin-bottom: 10px;"><strong>접속사 줄이기:</strong> '그래서', '그러나', '하지만' 등 접속사를 빼도 문맥이 통하는 경우가
+                        많습니다.</li>
+                    <li><strong>두괄식 작성:</strong> 핵심 내용을 앞에 배치하면 가독성이 높아지고 불필요한 서술을 줄일 수 있습니다.</li>
+                </ul>
+
+                <h2 style="color: #607D8B; font-size: 1.3rem; margin-top: 40px; margin-bottom: 20px;">[FAQ] 자주 묻는 질문
+                </h2>
+                <ul style="line-height: 1.8; color: #37474F; margin-bottom: 30px; padding-left: 20px;">
+                    <li style="margin-bottom: 15px;">
+                        <strong>Q. 띄어쓰기도 글자 수에 포함되나요?</strong><br>
+                        A. '공백 포함' 계산 시 띄어쓰기, 줄바꿈 모두 1자로 포함됩니다. '공백 제외'에서는 순수 글자만 셉니다.
+                    </li>
+                    <li>
+                        <strong>Q. 특수문자는 몇 바이트인가요?</strong><br>
+                        A. 영문/숫자/기본 특수문자는 1byte지만, '★' 같은 전각 기호나 이모지는 한글처럼 2byte(또는 3byte) 이상 차지할 수 있습니다.
+                    </li>
+                </ul>
+
+                <p
+                    style="color: #90A4AE; font-size: 0.85rem; margin-top: 50px; border-top: 1px solid #CFD8DC; padding-top: 20px;">
+                    ※ 안내: 본 계산기는 표준 UTF-8 및 EUC-KR 인코딩 계산 방식을 지원하며, 각 채용 사이트나 문서 프로그램(Word, 한글)의 내부 로직에 따라 미세한 결과 값 차이가
+                    있을 수 있습니다. 중요한 문서는 해당 제출처의 시스템에서 최종 확인하시기 바랍니다.
+                </p>
+            </article>
+
+        </div>
+
+        <footer>
+            &copy; Yangbam Lab. All rights reserved.<br>
+            <a href="../policy.html"
+                style="color: #b2bec3; text-decoration: none; font-size: 0.8rem; margin-top: 5px; display: inline-block;">이용약관
+                및 개인정보처리방침</a>
+        </footer>
+    </div>
+
+    <script>
+        const textarea = document.getElementById('inputText');
+        const elAll = document.getElementById('count-all');
+        const elNoSpace = document.getElementById('count-no-space');
+        const elByte = document.getElementById('count-byte');
+
+        function updateStats() {
+            const text = textarea.value;
+            const byteMode = document.querySelector('input[name="byteMode"]:checked').value;
+
+            // 1. Char Count (All)
+            elAll.innerText = formatNum(text.length);
+
+            // 2. Char Count (No Space)
+            // Remove spaces, tabs, newlines
+            const noSpaceText = text.replace(/\s/g, '');
+            elNoSpace.innerText = formatNum(noSpaceText.length);
+
+            // 3. Byte Count
+            let byteSize = 0;
+            for (let i = 0; i < text.length; i++) {
+                const charCode = text.charCodeAt(i);
+                if (charCode <= 127) {
+                    byteSize += 1; // ASCII
+                } else {
+                    // Korean: 2byte or 3byte depending on mode
+                    byteSize += (byteMode === '2' ? 2 : 3);
+                }
+            }
+            // Newline adjustment: Windows treats CRLF as 2 bytes, browser usually treats \n as 1 char. 
+            // Often "resume sites" treat \n as 2 bytes (CRLF). 
+            // For simplicity, we count based on JS string length chars.
+            // (Strictly speaking, textarea value in JS is usually \n). 
+
+            elByte.innerText = formatNum(byteSize);
+        }
+
+        function formatNum(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function clearText() {
+            textarea.value = '';
+            textarea.focus();
+            updateStats();
+        }
+
+        function copyText() {
+            if (!textarea.value) return;
+            textarea.select();
+            document.execCommand('copy'); // Fallback or modern Clipboard API
+            // Modern API: navigator.clipboard.writeText(textarea.value);
+            // using exactCommand for broader legacy support in simple html
+            alert("복사되었습니다.");
+            textarea.setSelectionRange(0, 0); // unselect
+        }
+
+        function trimText() {
+            let text = textarea.value;
+            // Replace multiple spaces with single space
+            // Replace multiple newlines with single newline (optional, maybe keep newlines?)
+            // Usually "trim" implies remove start/end whitespace.
+            // Let's do: trim start/end + reduce multiple spaces to one.
+            text = text.trim().replace(/ +/g, ' ');
+            textarea.value = text;
+            updateStats();
+        }
+
+        // Init
+        updateStats();
+    </script>
+</body>
+
+</html>
