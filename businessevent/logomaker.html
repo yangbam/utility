@@ -92,7 +92,7 @@
             display: flex;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 1200px;
+            max-width: 500px;
             gap: 40px;
             padding: 40px 20px;
             justify-content: center;
@@ -447,7 +447,7 @@
         }
 
         /* Mobile Scaling */
-        @media (max-width: 768px) {
+        @media (max-width: 99999px) {
             body {
                 padding-bottom: 300px;
                 /* Space for content if needed */
@@ -463,8 +463,8 @@
             .preview-section {
                 width: 100%;
                 order: -1;
-                position: sticky;
-                top: 0;
+                /* position: sticky; Removed */
+                /* top: 0; */
                 z-index: 100;
                 background-color: var(--bg);
                 /* Match body bg to hide scroll behind */
@@ -506,12 +506,23 @@
         function resizePreview() {
             const container = document.getElementById('logo-container');
             const wrapper = document.querySelector('.canvas-bg');
-            if (window.innerWidth < 600) {
-                // wrapper width is e.g. 350px. container is 500px.
-                const scale = (wrapper.offsetWidth - 40) / 500;
+
+            // Available width in wrapper (it has padding 20px)
+            // Container max-width is 500px, minus padding 10px*2 = 480px available for wrapper?
+            // Actually wrapper width is responsive.
+            // Logo Container is FIXED 500px.
+
+            // Allow scaling if wrapper is smaller than 500px (logo fixed width)
+            // Wrapper width depends on screen. Max 500px container width.
+
+            if (wrapper.offsetWidth < 520) { // 500 + some margin buffer
+                // wrapper padding is 20px * 2 = 40px
+                // We need to fit 500px into (wrapper.offsetWidth - 40)
+                const available = wrapper.offsetWidth - 40;
+                const scale = available / 500;
                 container.style.transform = `scale(${scale})`;
             } else {
-                container.style.transform = 'scale(1)'; // or none
+                container.style.transform = 'scale(1)';
             }
         }
         window.addEventListener('resize', resizePreview);

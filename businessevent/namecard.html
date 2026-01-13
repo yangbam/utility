@@ -79,7 +79,7 @@
             display: flex;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 1200px;
+            max-width: 500px;
             gap: 40px;
             padding: 40px 20px;
             justify-content: center;
@@ -365,7 +365,7 @@
 
         /* Responsive */
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 99999px) {
             .container {
                 flex-direction: column;
             }
@@ -387,9 +387,14 @@
         function resizeCard() {
             const preview = document.getElementById('card-preview');
             const baseWidth = 540;
+            // Max container width is 500px.
+            const containerWidth = Math.min(window.innerWidth, 500);
 
-            if (window.innerWidth < 600) {
-                const scale = (window.innerWidth - 40) / baseWidth;
+            // Available width inside container (padding 20px * 2 = 40px)
+            const availableWidth = containerWidth - 40;
+
+            if (availableWidth < baseWidth) {
+                const scale = availableWidth / baseWidth;
                 preview.style.transform = `scale(${scale})`;
                 preview.style.marginBottom = `-${300 * (1 - scale)}px`; // 300 is height
             } else {

@@ -84,7 +84,7 @@
             display: flex;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 1200px;
+            max-width: 500px;
             gap: 40px;
             padding: 40px 20px;
             justify-content: center;
@@ -399,7 +399,7 @@
             margin: 20px 0;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 99999px) {
             .container {
                 flex-direction: column;
             }
@@ -423,13 +423,15 @@
         // Scaling script for dynamic resize
         function resizePreview() {
             const preview = document.querySelector('.receipt-box');
-            if (window.innerWidth < 480) {
-                const scale = (window.innerWidth - 40) / 450; // 450 is base width
+            const baseWidth = 450;
+            const containerMaxWidth = 500;
+            // 40px padding (20px left + 20px right)
+            const availableWidth = Math.min(window.innerWidth, containerMaxWidth) - 40;
+
+            if (availableWidth < baseWidth) {
+                const scale = availableWidth / baseWidth;
                 preview.style.transform = `scale(${scale})`;
-                preview.style.marginBottom = `-${(1 - scale) * 600}px`; // Approx height adjust
-            } else if (window.innerWidth <= 768) {
-                preview.style.transform = 'scale(0.8)';
-                preview.style.marginBottom = '-100px';
+                preview.style.marginBottom = `-${(1 - scale) * 600}px`;
             } else {
                 preview.style.transform = 'none';
                 preview.style.marginBottom = '0';

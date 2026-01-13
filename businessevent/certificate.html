@@ -105,7 +105,7 @@
             display: flex;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 1200px;
+            max-width: 500px;
             gap: 40px;
             padding: 40px 20px;
             justify-content: center;
@@ -440,7 +440,7 @@
             margin-bottom: 10px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 99999px) {
             .container {
                 flex-direction: column;
             }
@@ -463,10 +463,12 @@
             const preview = document.getElementById('certificate');
             const baseWidth = 595; // A4 width at screen px
 
-            // Standard A4 Ratio 1:1.414
-            // If screen is smaller than baseWidth
-            if (window.innerWidth < 768) {
-                const scale = (window.innerWidth - 40) / baseWidth;
+            // Calculate available width based on container max-width (500px - padding 40px = 460px approx)
+            const containerMaxWidth = 500;
+            const availableWidth = Math.min(window.innerWidth, containerMaxWidth) - 40; // 40px padding
+
+            if (availableWidth < baseWidth) {
+                const scale = availableWidth / baseWidth;
                 preview.style.transform = `scale(${scale})`;
                 // Adjust margin bottom to close the gap created by scaling
                 // Height is 842. Space saved = 842 * (1-scale)
