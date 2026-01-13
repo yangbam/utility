@@ -408,62 +408,117 @@
 
     <div class="container">
         <header>
-            <header>
-                <a href="index.html" class="nav-home">←</a>
-                <h1>🐌 달팽이 레이싱</h1>
-                <p class="subtitle">도파민 터지는 내기/결정 게임</p>
-            </header>
+            <a href="index.html" class="nav-home">←</a>
+            <h1>🐌 달팽이 레이싱</h1>
+            <p class="subtitle">도파민 터지는 내기/결정 게임</p>
+        </header>
 
-            <div class="ad-banner">
-                (광고) 결정하기 힘들 땐? 달팽이에게 맡겨보세요!
+        <div class="ad-banner">
+            (광고) 결정하기 힘들 땐? 달팽이에게 맡겨보세요!
+        </div>
+
+        <!-- Setup Screen -->
+        <div id="setupScreen">
+            <h2 style="margin-bottom:20px; color:#555;">참가자 설정</h2>
+            <div class="input-group">
+                <input type="text" id="participantInput" placeholder="이름을 입력하세요 (예: 탕수육)"
+                    onkeypress="handleKeyPress(event)">
+                <button id="addBtn" onclick="addParticipant()">추가</button>
             </div>
 
-            <!-- Setup Screen -->
-            <div id="setupScreen">
-                <h2 style="margin-bottom:20px; color:#555;">참가자 설정</h2>
-                <div class="input-group">
-                    <input type="text" id="participantInput" placeholder="이름을 입력하세요 (예: 탕수육)"
-                        onkeypress="handleKeyPress(event)">
-                    <button id="addBtn" onclick="addParticipant()">추가</button>
-                </div>
-
-                <div id="list" class="participants-list">
-                    <!-- Chips go here -->
-                </div>
-
-                <button class="start-btn" onclick="startRace()">🏁 경기 시작 🏁</button>
-
-                <div class="instructions">
-                    <h3>🎮 게임 방법</h3>
-                    <ol>
-                        <li>후보(메뉴, 벌칙자 등)를 입력하고 '추가'하세요.</li>
-                        <li>'경기 시작'을 누르면 달팽이들이 경주를 시작합니다.</li>
-                        <li>약 10초~15초 간의 숨 막히는 레이스를 지켜보세요.</li>
-                        <li>1등에게는 화려한 축하가 쏟아집니다!</li>
-                    </ol>
-                </div>
+            <div id="list" class="participants-list">
+                <!-- Chips go here -->
             </div>
 
-            <!-- Racing Screen -->
-            <div id="racingScreen">
-                <div class="track-container" id="trackContainer">
-                    <!-- Tracks Generated Here -->
-                </div>
+            <button class="start-btn" onclick="startRace()">🏁 경기 시작 🏁</button>
+
+            <div class="instructions">
+                <h3>🎮 게임 방법</h3>
+                <ol>
+                    <li>후보(메뉴, 벌칙자 등)를 입력하고 '추가'하세요.</li>
+                    <li>'경기 시작'을 누르면 달팽이들이 경주를 시작합니다.</li>
+                    <li>약 10초~15초 간의 숨 막히는 레이스를 지켜보세요.</li>
+                    <li>1등에게는 화려한 축하가 쏟아집니다!</li>
+                </ol>
             </div>
+        </div>
 
-            <article class="seo-section">
-                <h2>공정한 랜덤 게임을 찾고 계신가요?</h2>
-                <p>
-                    '달팽이 레이싱'은 단순한 제비뽑기가 아닙니다. 각 달팽이는 매 0.5초마다 랜덤한 속도(멈춤/걷기/전력질주)를 부여받습니다.
-                    따라서 출발이 늦더라도 막판 대역전극이 일어날 수 있죠.
-                    직장 동료들과의 점심 내기, 친구들과의 술자리 벌칙 정하기 등 긴장감이 필요한 순간에 이 게임을 실행해보세요.
-                    모두가 화면을 뚫어져라 쳐다보며 자신의 달팽이를 응원하게 될 것입니다.
-                </p>
-            </article>
+        <!-- Racing Screen -->
+        <div id="racingScreen">
+            <div class="track-container" id="trackContainer">
+                <!-- Tracks Generated Here -->
+            </div>
+        </div>
 
-            <footer>
-                &copy; 2026 20g Lab. Educational Purpose Only.
-            </footer>
+        <article class="seo-section">
+            <h2 style="font-size: 1.5rem; color: #ff6b6b; margin-bottom: 1.5rem;">🐌 달팽이 레이싱 게임: 100% 리얼 랜덤 내기 한판!</h2>
+
+            <h3
+                style="font-size: 1.2rem; color: #333; margin-top: 2rem; border-left: 4px solid #ff6b6b; padding-left: 10px;">
+                결정의 순간, 왜 달팽이 레이싱인가?</h3>
+            <p>
+                단순히 결과를 확인하는 제비뽑기가 지루하신가요? 네, 결과만 "띡" 하고 나오는 건 재미없습니다.
+                인간은 결과보다 '과정'에서 오는 스릴과 서스펜스를 즐기는 본능이 있습니다.
+                마지막 결승선을 통과하기 전까지 아무도 결과를 알 수 없는 쫄깃함! 그것이 바로 <strong>달팽이 레이싱</strong>이 탄생한 이유입니다.
+                사다리 타기나 룰렛 돌리기는 너무 뻔하고 식상합니다.
+                이제 귀여운 달팽이 선수들이 펼치는 예측 불허의 드라마에 여러분의 운명을 맡겨보세요.
+                이 게임은 단순한 프로그램이 아니라, 여러분의 모임 분위기를 뜨겁게 달꿔줄 최고의 아이스 브레이킹(Ice Breaking) 도구입니다.
+            </p>
+
+            <h3
+                style="font-size: 1.2rem; color: #333; margin-top: 2rem; border-left: 4px solid #ff6b6b; padding-left: 10px;">
+                게임의 작동 원리와 공정성</h3>
+            <p>
+                "이거 조작 아니야?" 내기 게임에서 가장 중요한 것은 신뢰입니다. 달팽이 레이싱은 다음과 같은 로직으로 작동합니다.
+                <br><br>
+                <strong>1. 실시간 랜덤 가속 시스템:</strong> 모든 달팽이는 출발선에서 동시에 시작하지만, 매 0.5초마다 각자 다른 '운명'을 맞이합니다.
+                프로그램은 주기적으로 주사위를 굴려 각 달팽이에게 다음 행동을 지시합니다. 어떤 달팽이는 잠시 휴식을 취하고(정지),
+                어떤 달팽이는 평범하게 기어가며(걷기), 어떤 달팽이는 기적적인 부스터를 발동(전력질주)합니다.
+                <br><br>
+                <strong>2. 끝날 때까지 끝난 게 아니다:</strong> 초반에 뒤처졌다고 실망하지 마세요. 선두를 달리던 달팽이가 결승선 코앞에서 낮잠을 자는 동안,
+                꼴찌였던 달팽이가 연속 부스터로 역전 우승을 차지하는 그림이 자주 나옵니다. 이것은 인생과도 비슷한 우리네 '랜덤'의 묘미입니다.
+                <br><br>
+                <strong>3. 시각적인 직관성:</strong> 숫자로 확률을 계산할 필요가 없습니다. 그냥 화면을 보고 가장 먼저 오른쪽 끝에 닿는 달팽이가 이기는 것입니다.
+                남녀노소 누구나 직관적으로 이해할 수 있는 룰입니다.
+            </p>
+
+            <h3
+                style="font-size: 1.2rem; color: #333; margin-top: 2rem; border-left: 4px solid #ff6b6b; padding-left: 10px;">
+                이럴 때 사용하면 딱입니다!</h3>
+            <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+                <li style="margin-bottom: 10px;"><strong>점심값/커피값 내기:</strong> 팀원들의 이름을 입력하고 돌리세요. 보통 1등을 뽑거나, 반대로 꼴찌를 뽑는
+                    '데스매치' 방식으로 진행합니다. "오늘 커피는 꼴찌 달팽이가 쏜다!"라고 외치고 경기를 시작해보세요. 사무실이 순식간에 경기장으로 변하는 마법을 경험할 수 있습니다.</li>
+                <li style="margin-bottom: 10px;"><strong>집안일 분담 (설거지/청소):</strong> 가족끼리, 혹은 룸메이트끼리 귀찮은 집안일을 누가 할지 정할 때
+                    유용합니다. 가위바위보는 심리전이고 피지컬이지만, 달팽이 경주는 순수한 '운'입니다. 패배해도 억울함이 덜하고 결과에 승복하기 쉽습니다.</li>
+                <li style="margin-bottom: 10px;"><strong>술자리 벌칙 게임:</strong> 엠티나 회식 자리에서 분위기를 띄울 때 스마트폰이나 태블릿으로 실행해보세요.
+                    각자 자신의 이름을 단 달팽이를 응원하며 소리지르는 광경은 그 자체로 즐거운 추억이 됩니다.</li>
+                <li style="margin-bottom: 10px;"><strong>선택 장애 해결:</strong> 짜장면 vs 짬뽕, 치킨 vs 피자. 메뉴를 달팽이 이름으로 넣고 경주를
+                    시키세요. 1등으로 들어온 메뉴를 먹는 겁니다. 메뉴 선택에 들이는 에너지를 아낄 수 있습니다.</li>
+            </ul>
+
+            <h3
+                style="font-size: 1.2rem; color: #333; margin-top: 2rem; border-left: 4px solid #ff6b6b; padding-left: 10px;">
+                사용자 꿀팁 (Tips)</h3>
+            <p>
+                <strong>Q. 참가자가 너무 많으면 어떡하죠?</strong><br>
+                화면 최적화를 위해 최대 8명(8마리)까지 참가를 제한하고 있습니다. 만약 인원이 더 많다면 '조별 예선'을 거치는 토너먼트 방식으로 진행해보세요.
+                예를 들어 16명이라면 8명씩 두 번 경기를 하고, 상위 4명씩 모아서 결승전을 치르는 겁니다. 이렇게 하면 대회의 긴장감이 더 높아지고 재미있어집니다.
+            </p>
+            <p>
+                <strong>Q. 팁이 있다면?</strong><br>
+                경기를 시작하기 전에 미리 '상품'과 '벌칙'을 확실하게 정해두세요. 그리고 가능하다면 큰 화면(TV나 빔프로젝터)에 연결해서 보세요.
+                중계를 하듯이 "아! 3번 레인 김대리 달팽이, 여기서 멈추나요?!", "5번 레인 이과장 달팽이 치고 나옵니다!"라고 해설을 곁들이면 재미가 200% 증가합니다.
+            </p>
+
+            <p style="margin-top: 2rem; padding: 1rem; background: #ffebee; border-radius: 8px;">
+                <strong>📢 주의사항:</strong> 이 게임은 너무 재미있어서 시간 가는 줄 모를 수 있습니다. 업무 시간에 몰래 하다가 부장님께 들키지 않도록 주의하세요.
+                하지만 부장님도 함께라면? 바로 스타트 버튼을 누르세요!
+            </p>
+        </article>
+
+        <footer>
+            &copy; 2026 20g Lab. Educational Purpose Only.
+        </footer>
     </div>
 
     <!-- Result Overlay -->
