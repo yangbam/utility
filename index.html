@@ -4,153 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>테스트와 유틸리티의 모든 것</title>
+    <title>테스트와 유틸리티의 모든 것 - Yangbam Lab</title>
     <meta name="description" content="심리테스트, 계산기, IT 변환기 등 유용한 도구와 재미있는 콘텐츠를 제공하는 Yangbam Lab입니다.">
-    <meta name="keywords" content="심리테스트, 계산기, IT도구, 무료웹툴, Yangbam Lab">
-    <meta name="author" content="Yangbam Lab">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="테스트와 유틸리티의 모든 것">
-    <meta property="og:description" content="심리테스트부터 계산기까지! 당신에게 필요한 모든 도구를 한곳에.">
-    <!-- <meta property="og:image" content="https://Yangbam-lab.com/assets/og_main_hub.png"> -->
-    <link rel="canonical" href="https://Yangbam-lab.com/index.html">
-    <style>
-        :root {
-            --primary: #2d3436;
-            --accent: #0984e3;
-            --bg: #f5f6fa;
-            --card-bg: #ffffff;
-            --text: #2d3436;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background-color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-        }
-
-        header {
-            padding: 40px 20px;
-            text-align: center;
-            background-color: white;
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 900;
-            margin: 0;
-            color: var(--primary);
-            letter-spacing: -1px;
-        }
-
-        .subtitle {
-            margin-top: 10px;
-            color: #636e72;
-            font-size: 16px;
-        }
-
-        main {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .menu-card {
-            display: flex;
-            align-items: center;
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            border: 1px solid #eee;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            border-color: var(--accent);
-        }
-
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            margin-right: 20px;
-            flex-shrink: 0;
-        }
-
-        .content {
-            flex-grow: 1;
-        }
-
-        .title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .desc {
-            font-size: 14px;
-            color: #888;
-        }
-
-        .arrow {
-            color: #ccc;
-            font-size: 20px;
-        }
-
-        .disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            pointer-events: none;
-            background-color: #f9f9f9;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            font-size: 12px;
-            color: #b2bec3;
-            border-top: 1px solid #eee;
-        }
-    </style>
-    <!-- Google tag (gtag.js) -->
+    <!-- Modern Fonts: Outfit (Headings) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Tag Manager / AdSense -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-18HBM95WEK"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-18HBM95WEK');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8663042229769611"
@@ -158,282 +26,214 @@
 </head>
 
 <body>
+    <!-- Overlay for Mobile Menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <a href="index.html" class="logo">Yangbam Lab</a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+            &#9776;
+        </button>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html" class="nav-link">홈</a>
+            <a href="test/index.html" class="nav-link">심리테스트</a>
+            <a href="calculator/index.html" class="nav-link">계산기</a>
+            <a href="businessevent/index.html" class="nav-link">비즈니스</a>
+            <a href="dianosis/index.html" class="nav-link">시스템진단</a>
+        </nav>
+    </header>
+
     <div class="container">
-        <header>
-            <h1>Yangbam Lab</h1>
-            <p class="subtitle">테스트와 유틸리티의 모든 것</p>
-        </header>
+        <!-- Main Content Area -->
+        <main class="main-content">
 
-        <main>
-            <!-- 6. 무작위 도구 -->
-            <a href="random/index.html" class="menu-card">
-                <div class="icon-box" style="background-color: #fff3e0; color: #ff9f43;">🎲</div>
-                <div class="content">
-                    <div class="title">무작위 도구 <span
-                            style="font-size:10px; color:#ffffff; background:#e17055; padding:2px 5px; border-radius:4px;">HOT</span>
-                    </div>
-                    <div class="desc">달팽이 레이싱, 랜덤 추첨기 등<br>결정 장애 해결을 위한 솔루션</div>
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Yangbam Lab</h1>
+                <p>테스트와 유틸리티의 모든 것.<br>심리테스트부터 도구까지, 당신의 일상을 혁신하는 스마트 플랫폼입니다.</p>
+            </section>
+
+            <!-- Tools Grid Section -->
+            <section class="category-section">
+                <h2 class="category-title">전체 도구 모음</h2>
+                <div class="card-grid">
+
+                    <!-- 1. Random Tools -->
+                    <a href="random/index.html" class="card">
+                        <div class="card-img-placeholder"
+                            style="background: #fff3e0; display:flex; align-items:center; justify-content:center; font-size:4rem;">
+                            🎲</div>
+                        <div class="card-body">
+                            <h3 class="card-title">무작위 도구 <span
+                                    style="font-size:0.75rem; background:#e17055; color:white; padding:2px 6px; border-radius:4px; margin-left:5px; vertical-align:middle;">HOT</span>
+                            </h3>
+                            <p class="card-text">달팽이 레이싱, 랜덤 추첨기 등 결정 장애 해결을 위한 솔루션입니다.</p>
+                            <div class="card-footer">
+                                <span>Random Utils</span>
+                                <span>Try Now &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 2. Psycho Test -->
+                    <a href="test/index.html" class="card">
+                        <div class="card-img-placeholder"
+                            style="background: #e3f2fd; display:flex; align-items:center; justify-content:center; font-size:4rem;">
+                            🧠</div>
+                        <div class="card-body">
+                            <h3 class="card-title">심리테스트 연구소</h3>
+                            <p class="card-text">꼰대력, 연애세포, 퍼스널컬러 등 다양한 성향을 데이터 기반으로 분석합니다.</p>
+                            <div class="card-footer">
+                                <span>Personality Test</span>
+                                <span>Try Now &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 3. Business & Event -->
+                    <a href="businessevent/index.html" class="card">
+                        <div class="card-img-placeholder"
+                            style="background: #fff3e0; display:flex; align-items:center; justify-content:center; font-size:4rem;">
+                            💼</div>
+                        <div class="card-body">
+                            <h3 class="card-title">비즈니스 & 이벤트 <span
+                                    style="font-size:0.75rem; background:#e17055; color:white; padding:2px 6px; border-radius:4px; margin-left:5px; vertical-align:middle;">NEW</span>
+                            </h3>
+                            <p class="card-text">셀프 명함, 온라인 도장, 영수증 생성 등 창업과 이벤트를 위한 필수 도구.</p>
+                            <div class="card-footer">
+                                <span>Business Utils</span>
+                                <span>Try Now &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 4. Calculator -->
+                    <a href="calculator/index.html" class="card">
+                        <div class="card-img-placeholder"
+                            style="background: #f3e5f5; display:flex; align-items:center; justify-content:center; font-size:4rem;">
+                            🧮</div>
+                        <div class="card-body">
+                            <h3 class="card-title">편리한 계산기</h3>
+                            <p class="card-text">2026 연봉 실수령액, 대출 이자, 육아휴직 급여 등 생활 필수 계산기.</p>
+                            <div class="card-footer">
+                                <span>Calculator</span>
+                                <span>Try Now &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 5. 20g Lab -->
+                    <a href="20g/index.html" class="card">
+                        <div class="card-img-placeholder"
+                            style="background: #f3e5f5; display:flex; align-items:center; justify-content:center; font-size:4rem;">
+                            🧪</div>
+                        <div class="card-body">
+                            <h3 class="card-title">20g Lab (대학생 유틸)</h3>
+                            <p class="card-text">파일 파손(과제 구조대), 반성문 생성, 스타벅스 해커 등 대학생 생존 도구.</p>
+                            <div class="card-footer">
+                                <span>Student Utils</span>
+                                <span>Try Now &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 6. IT Convertor -->
+                    <a href="itconvertor/index.html" class="card">
+                        <div class="card-img-placeholder"
+                            style="background: #e0f2f1; display:flex; align-items:center; justify-content:center; font-size:4rem;">
+                            💻</div>
+                        <div class="card-body">
+                            <h3 class="card-title">IT 개발 도구</h3>
+                            <p class="card-text">JSON 포맷터, Base64 인코더, QR코드 생성 등 개발자 생산성 도구.</p>
+                            <div class="card-footer">
+                                <span>Developer Tools</span>
+                                <span>Try Now &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 7. System Diagnosis -->
+                    <a href="dianosis/index.html" class="card">
+                        <div class="card-img-placeholder"
+                            style="background: #2d3436; display:flex; align-items:center; justify-content:center; font-size:4rem; color:white;">
+                            🛡️</div>
+                        <div class="card-body">
+                            <h3 class="card-title">시스템 진단</h3>
+                            <p class="card-text">모니터 불량화소, 마우스 폴링레이트, 키보드 테스트 등 장비 및 환경 점검.</p>
+                            <div class="card-footer">
+                                <span>System Check</span>
+                                <span>Try Now &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
                 </div>
-                <div class="arrow">›</div>
-            </a>
-
-            <!-- 1. 심리테스트 -->
-            <a href="test/index.html" class="menu-card">
-                <div class="icon-box" style="background-color: #e3f2fd; color: #0984e3;">🧠</div>
-                <div class="content">
-                    <div class="title">심리테스트 연구소</div>
-                    <div class="desc">꼰대력, 연애세포, 퍼스널컬러 등<br>다양한 성향 분석 테스트 모음</div>
-                </div>
-                <div class="arrow">›</div>
-            </a>
-
-            <!-- 4. 비즈니스 & 이벤트 -->
-            <a href="businessevent/index.html" class="menu-card">
-                <div class="icon-box" style="background-color: #fff3e0; color: #ff9800;">💼</div>
-                <div class="content">
-                    <div class="title">비즈니스 & 이벤트 <span
-                            style="font-size:10px; color:#ffffff; background:#e17055; padding:2px 5px; border-radius:4px;">NEW</span>
-                    </div>
-                    <div class="desc">명함, 도장, 영수증부터<br>네임스티커, SNS 패러디까지</div>
-                </div>
-                <div class="arrow">›</div>
-            </a>
-
-            <!-- 2. 계산기 -->
-            <a href="calculator/index.html" class="menu-card">
-                <div class="icon-box" style="background-color: #f3e5f5; color: #8e44ad;">🧮</div>
-                <div class="content">
-                    <div class="title">편리한 계산기 <span
-                            style="font-size:10px; color:#ffffff; background:#e17055; padding:2px 5px; border-radius:4px;">NEW</span>
-                    </div>
-                    <div class="desc">2026 연봉 실수령액 계산기,<br>대출, 육아휴직기 계산 등 생활 필수 도구</div>
-                </div>
-                <div class="arrow">›</div>
-            </a>
-
-
-            <!-- 7. 20g Lab (Student Utils) -->
-            <a href="20g/index.html" class="menu-card">
-                <div class="icon-box" style="background-color: #f3e5f5; color: #9c27b0;">🧪</div>
-                <div class="content">
-                    <div class="title">20g Lab (대학생 유틸) <span
-                            style="font-size:10px; color:#ffffff; background:#e17055; padding:2px 5px; border-radius:4px;">HOT</span>
-                    </div>
-                    <div class="desc">파일 파손, 반성문 생성,<br>스타벅스 해커 등 꿀잼 연구소</div>
-                </div>
-                <div class="arrow">›</div>
-            </a>
-
-            <!-- 3. IT 변환기 -->
-            <a href="itconvertor/index.html" class="menu-card">
-                <div class="icon-box" style="background-color: #e0f2f1; color: #009688;">💻</div>
-                <div class="content">
-                    <div class="title">IT 개발 도구</div>
-                    <div class="desc">JSON 포맷터, Base64 인코더 등<br>개발자를 위한 변환기</div>
-                </div>
-                <div class="arrow">›</div>
-            </a>
-
-            <!-- 5. 시스템 진단 -->
-            <a href="dianosis/index.html" class="menu-card">
-                <div class="icon-box" style="background-color: #2d3436; color: #00cec9;">🛡️</div>
-                <div class="content">
-                    <div class="title">My System Info <span
-                            style="font-size:10px; color:#ffffff; background:#e17055; padding:2px 5px; border-radius:4px;">NEW</span>
-                    </div>
-                    <div class="desc">마우스, 키보드, 모니터 테스트<br>및 시스템 정보 확인</div>
-                </div>
-                <div class="arrow">›</div>
-            </a>
+            </section>
         </main>
 
-        <footer>
-            &copy; 2026 Yangbam Lab. All rights reserved.<br>
-            <a href="policy.html"
-                style="color: #b2bec3; text-decoration: none; font-size: 0.8rem; margin-top: 5px; display: inline-block;">이용약관
-                및 개인정보처리방침</a>
-        </footer>
+        <!-- Sidebar (Desktop Only) -->
+        <aside class="sidebar">
+            <div class="widget">
+                <h3 class="widget-title">Yangbam Lab</h3>
+                <div style="text-align: center;">
+                    <div
+                        style="width:100px; height:100px; background:#2d3436; color:white; border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:bold;">
+                        Y</div>
+                    <p>복잡한 설치 없이 브라우저에서 바로 실행하는 무료 웹 유틸리티 연구소입니다.</p>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3 class="widget-title">인기 도구</h3>
+                <ul class="popular-post-list">
+                    <li><a href="random/snail.html">🐌 달팽이 레이싱 게임</a></li>
+                    <li><a href="test/index.html">🧠 꼰대력 테스트</a></li>
+                    <li><a href="calculator/index.html">💰 2026 연봉 계산기</a></li>
+                    <li><a href="20g/corrupter.html">📁 파일 파손기 (과제용)</a></li>
+                    <li><a href="businessevent/stamp.html">💮 온라인 도장 만들기</a></li>
+                </ul>
+            </div>
+        </aside>
     </div>
-    </div>
 
-    <!-- SEO Content -->
-    <article class="seo-footer"
-        style="padding: 4rem 1.5rem; background: #fff; border-top: 1px solid #eaeaea; color: #555; line-height: 1.8; text-align: left; margin: 3rem auto; font-family: 'Apple SD Gothic Neo', sans-serif; max-width: 600px; width: 100%; box-sizing: border-box;">
-
-        <h2
-            style="font-size: 2rem; margin-bottom: 2rem; text-align: center; color: #2d3436; font-weight: 900; word-break: keep-all;">
-            Yangbam Lab: 당신의 일상을 혁신하는<br>스마트 웹 플랫폼
-        </h2>
-
-        <p style="margin-bottom: 2rem; text-align: center; color: #636e72;">
-            "복잡한 건 싫고, 설치는 귀찮고, 내 정보는 소중하니까."<br>
-            <strong>Yangbam Lab</strong>은 현대인이 매일 마주하는 고민들을<br>
-            가장 심플하고 안전하게 해결하기 위해 탄생했습니다.
-        </p>
-
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 3rem 0;">
-
-        <div style="margin-bottom: 3rem;">
-            <h3
-                style="font-size: 1.4rem; margin-bottom: 1rem; color: #FF9F43; font-weight: bold; display: flex; align-items: center;">
-                <span
-                    style="background: #fff3e0; padding: 5px 10px; border-radius: 8px; margin-right: 10px; font-size: 1.2rem;">🎲</span>
-                무작위 도구
-            </h3>
-            <p style="margin-bottom: 1rem;">
-                "오늘 뭐 먹지? 누가 쏠래?" 사소하지만 골치 아픈 결정의 순간들. 무작위 도구은 여러분의 선택 스트레스를
-                제로(0)로 만들어드립니다. 공정한 알고리즘과 재미있는 시각 효과로 결정의 순간을 즐거운 이벤트로 바꿔보세요.
-            </p>
-            <ul style="color: #636e72; font-size: 0.95rem;">
-                <li><strong>결정 도구</strong>: <a href="random/picker.html"
-                        style="color:#e67e22; text-decoration:none; font-weight:bold;">간편 랜덤 추첨기</a>, <a
-                        href="random/snail.html" style="color:#d63031; text-decoration:none; font-weight:bold;">달팽이
-                        레이싱</a></li>
-            </ul>
+    <footer class="main-footer">
+        <p>&copy; 2026 Yangbam Lab. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="policy.html">이용약관 및 개인정보처리방침</a>
+            <a href="#">문의하기</a>
         </div>
+    </footer>
 
-        <div style="margin-bottom: 3rem;">
-            <h3
-                style="font-size: 1.4rem; margin-bottom: 1rem; color: #0984e3; font-weight: bold; display: flex; align-items: center;">
-                <span
-                    style="background: #e3f2fd; padding: 5px 10px; border-radius: 8px; margin-right: 10px; font-size: 1.2rem;">🧠</span>
-                심리테스트 연구소
-            </h3>
-            <p style="margin-bottom: 1rem;">
-                나도 모르는 내 마음, 궁금하지 않으신가요? 단순한 흥미 위주의 테스트를 넘어 행동 심리학과 데이터 기반의 분석 알고리즘을 적용했습니다. 나의 성격, 연애 스타일, 직장 내 처세술 등을
-                객관적으로 파악하고, 친구들과 결과를 공유하며 즐거운 소통의 시간을 가져보세요.
-            </p>
-            <ul style="color: #636e72; font-size: 0.95rem;">
-                <li>꼰대력, 거지 DNA, 연애세포 생존 여부 등 12종+ 테스트</li>
-                <li>MBTI 대체 가능한 상황별 상세 리포트 제공</li>
-            </ul>
-        </div>
+    <!-- JavaScript for Mobile Menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
 
-        <div style="margin-bottom: 3rem;">
-            <h3
-                style="font-size: 1.4rem; margin-bottom: 1rem; color: #8e44ad; font-weight: bold; display: flex; align-items: center;">
-                <span
-                    style="background: #f3e5f5; padding: 5px 10px; border-radius: 8px; margin-right: 10px; font-size: 1.2rem;">🧮</span>
-                편리한 계산기
-            </h3>
-            <p style="margin-bottom: 1rem;">
-                생활 속 복잡한 계산, 검색창을 헤매지 마세요. 2026년 최신 세법과 금융 정책이 반영된 '살아있는 계산기'입니다. 연봉 실수령액부터 대출 이자, 다이어트 칼로리까지. 입력하는 즉시
-                당신에게 필요한 정답을 제시합니다.
-            </p>
-            <ul style="color: #636e72; font-size: 0.95rem;">
-                <li>급여/세금: 연봉 실수령액, 프리랜서, 육아휴직 급여</li>
-                <li>금융/생활: 대출 이자, 중개수수료, D-Day, 글자수 세기</li>
-            </ul>
-        </div>
+            function toggleMenu() {
+                navMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            }
 
-        <div style="margin-bottom: 3rem;">
-            <h3
-                style="font-size: 1.4rem; margin-bottom: 1rem; color: #009688; font-weight: bold; display: flex; align-items: center;">
-                <span
-                    style="background: #e0f2f1; padding: 5px 10px; border-radius: 8px; margin-right: 10px; font-size: 1.2rem;">💻</span>
-                IT 개발 도구
-            </h3>
-            <p style="margin-bottom: 1rem;">
-                개발자의 "귀차니즘"을 해결합니다. 포맷팅, 인코딩, 변환 등 매번 검색해서 다른 사이트를 찾아다니던 수고를 덜어드립니다. 모든 데이터는 서버로 전송되지 않고 브라우저 내에서만 처리되므로
-                보안 걱정 없이 안전하게 업무에 활용하세요.
-            </p>
-            <ul style="color: #636e72; font-size: 0.95rem;">
-                <li>데이터: JSON Formatter, CSV to SQL, Base64 Converter</li>
-                <li>유틸리티: QR Code 생성, WebP 변환, Markdown 에디터</li>
-            </ul>
-        </div>
+            // Click listener
+            menuToggle.addEventListener('click', toggleMenu);
+            menuOverlay.addEventListener('click', toggleMenu);
 
-        <div style="margin-bottom: 3rem;">
-            <h3
-                style="font-size: 1.4rem; margin-bottom: 1rem; color: #ff9800; font-weight: bold; display: flex; align-items: center;">
-                <span
-                    style="background: #fff3e0; padding: 5px 10px; border-radius: 8px; margin-right: 10px; font-size: 1.2rem;">💼</span>
-                비즈니스 & 이벤트 (New)
-            </h3>
-            <p style="margin-bottom: 1rem;">
-                "디자인은 돈이고, 시간입니다." 1인 기업가와 소상공인, 그리고 N잡러를 위한 <strong>무료 디자인 자동화 도구</strong>입니다.
-                명함, 영수증, 도장, 쿠폰 등 사업에 꼭 필요하지만 직접 만들기엔 까다로운 문서들을 웹에서 즉시 생성하세요.
-                전문 디자이너가 없어도 퀄리티 높은 브랜딩이 가능합니다. 포토샵을 몰라도 괜찮습니다. 당신의 비즈니스 아이디어만 가져오세요.
-            </p>
-            <ul style="color: #636e72; font-size: 0.95rem;">
-                <li><strong>창업 필수품</strong>: <a href="businessevent/namecard.html"
-                        style="color:#e67e22; text-decoration:none; font-weight:bold;">셀프 명함</a>, <a
-                        href="businessevent/stamp.html"
-                        style="color:#d35400; text-decoration:none; font-weight:bold;">온라인 도장</a>, <a
-                        href="businessevent/receipt.html"
-                        style="color:#7f8c8d; text-decoration:none; font-weight:bold;">간이 영수증</a></li>
-                <li><strong>이벤트/굿즈</strong>: <a href="businessevent/invitation.html"
-                        style="color:#e91e63; text-decoration:none; font-weight:bold;">모바일 초대장</a>, <a
-                        href="businessevent/coupon.html"
-                        style="color:#c2185b; text-decoration:none; font-weight:bold;">쿠폰/상품권</a>, <a
-                        href="businessevent/certificate.html"
-                        style="color:#f1c40f; text-decoration:none; font-weight:bold;">상장/수료증</a></li>
-                <li><strong>생활/재미</strong>: <a href="businessevent/label.html"
-                        style="color:#576574; text-decoration:none; font-weight:bold;">네임스티커</a>, <a
-                        href="businessevent/parody.html"
-                        style="color:#f39c12; text-decoration:none; font-weight:bold;">SNS 패러디</a></li>
-            </ul>
-        </div>
-
-        <div style="margin-bottom: 3rem;">
-            <h3
-                style="font-size: 1.4rem; margin-bottom: 1rem; color: #00cec9; font-weight: bold; display: flex; align-items: center;">
-                <span
-                    style="background: #e0f7fa; padding: 5px 10px; border-radius: 8px; margin-right: 10px; font-size: 1.2rem;">🛡️</span>
-                시스템 진단 (My System Info)
-            </h3>
-            <p style="margin-bottom: 1rem;">
-                "내 컴퓨터와 인터넷 상태, 1초 만에 확인하세요." 복잡한 설정 메뉴를 뒤질 필요 없이, 접속하는 즉시 당신의 디지털 환경을 진단해드립니다.
-                새 모니터를 샀을 때, 마우스가 더블 클릭되는 것 같을 때, 키보드 입력이 씹힐 때. 전문가처럼 장비를 테스트하고 최적의 상태를 유지하세요.
-            </p>
-            <ul style="color: #636e72; font-size: 0.95rem;">
-                <li><strong>장비 테스트</strong>: <a href="dianosis/monitor_test.html"
-                        style="color:#00b894; text-decoration:none; font-weight:bold;">모니터 불량화소</a>, <a
-                        href="dianosis/mouse_test.html"
-                        style="color:#0984e3; text-decoration:none; font-weight:bold;">마우스 폴링레이트</a>, <a
-                        href="dianosis/keyboard_test.html"
-                        style="color:#6c5ce7; text-decoration:none; font-weight:bold;">키보드 동시입력</a></li>
-                <li><strong>환경 진단</strong>: <a href="dianosis/system_info.html"
-                        style="color:#2d3436; text-decoration:none; font-weight:bold;">내 IP/브라우저 정보</a>, 인터넷 속도 측정, 화면
-                    해상도 확인</li>
-            </ul>
-        </div>
-
-        <div style="margin-bottom: 3rem;">
-            <h3
-                style="font-size: 1.4rem; margin-bottom: 1rem; color: #9c27b0; font-weight: bold; display: flex; align-items: center;">
-                <span
-                    style="background: #f3e5f5; padding: 5px 10px; border-radius: 8px; margin-right: 10px; font-size: 1.2rem;">🧪</span>
-                20g Lab (대학생 유틸)
-            </h3>
-            <p style="margin-bottom: 1rem;">
-                "조별 과제, 늦은 마감, 어색한 사과." 대학생들의 현실적인 위기를 구해주는 유틸리티 실험실입니다.
-                제출 기한을 놓쳤을 때 시간을 벌어주는 파일 파손기부터, 카페에서 천재 해커처럼 보일 수 있는 타이퍼,
-                그리고 진심 어린 사과문 생성기까지. 당신의 대학 생활에 작은 위트와 생존 전략을 더해드립니다.
-            </p>
-            <ul style="color: #636e72; font-size: 0.95rem;">
-                <li><strong>생존 도구</strong>: <a href="20g/corrupter.html"
-                        style="color:#d63031; text-decoration:none; font-weight:bold;">파일 파손기(과제 구조대)</a>, <a
-                        href="20g/apology.html" style="color:#6c5ce7; text-decoration:none; font-weight:bold;">만능 반성문
-                        생성기</a></li>
-                <li><strong>재미/컨셉</strong>: <a href="20g/hacker.html"
-                        style="color:#00b894; text-decoration:none; font-weight:bold;">스타벅스 해커
-                        타이퍼</a></li>
-            </ul>
-        </div>
-
-        <div
-            style="margin-top: 3rem; padding: 2rem; background-color: #2d3436; border-radius: 12px; color: white; text-align: center;">
-            <p style="margin: 0; font-size: 1.1rem; font-weight: bold; margin-bottom: 10px;">
-                "Simplicity is the ultimate sophistication."
-            </p>
-            <p style="margin: 0; font-size: 0.9rem; opacity: 0.8; font-weight: 300;">
-                Yangbam Lab은 사용자 경험(UX)을 최우선으로 생각합니다.<br>
-                불필요한 로딩, 복잡한 메뉴는 없습니다.<br>
-                오직 <strong>당신이 필요한 그 기능</strong>에만 집중합니다.
-            </p>
-        </div>
-    </article>
+            // Close menu when clicking links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
